@@ -22,13 +22,18 @@ namespace optimization
 
       matrix()=delete; //disable default constructor, force the use of the following
       explicit matrix(const std::size_t&, const std::size_t&); //ordinary constructor
-      //explicit matrix(const matrix&); //copy constructor
-      template <class OtherStoragePolicy> matrix(OtherStoragePolicy const&);
-      //matrix(matrix&&); //move constructor
-      template <class OtherStoragePolicy> matrix(matrix<OtherStoragePolicy>&&);
 
-      template <class OtherStoragePolicy> matrix& operator=(matrix<OtherStoragePolicy> const&); //copy assignment only for matrix types
-      template <class OtherStoragePolicy> matrix& operator=(matrix<OtherStoragePolicy>&&); //move assignment
+      template <class OtherStoragePolicy>
+      matrix(matrix<OtherStoragePolicy> const&);
+
+      template <class OtherStoragePolicy>
+      matrix(matrix<OtherStoragePolicy>&&);
+
+      template <class OtherStoragePolicy>
+      matrix& operator=(matrix<OtherStoragePolicy> const&); //copy assignment only for matrix types
+
+      template <class OtherStoragePolicy>
+      matrix& operator=(matrix<OtherStoragePolicy>&&); //move assignment
 
       double& operator()(const std::size_t&, const std::size_t&);
       const double& operator()(const std::size_t&, const std::size_t&) const;
@@ -78,15 +83,9 @@ namespace optimization
       //nothing to do here
    }
 
-   /*template <class StoragePolicy>
-   matrix<StoragePolicy>::matrix(const matrix<StoragePolicy>& rh): matrix(rh._n, rh._m)
-   {
-      _v = rh._v;
-   }*/
-
    template <class StoragePolicy>
    template <class OtherStoragePolicy>
-   matrix<StoragePolicy>::matrix(OtherStoragePolicy const& rh): matrix(rh.row_count(), rh.col_count())
+   matrix<StoragePolicy>::matrix(matrix<OtherStoragePolicy> const& rh): matrix(rh.row_count(), rh.col_count())
    {
       for(std::size_t j=0; j<rh.row_count(); ++j) {
          miterator it1 = rbegin(j);
@@ -95,15 +94,6 @@ namespace optimization
          }
       }
    }
-
-   /*template <class StoragePolicy>
-   matrix<StoragePolicy>::matrix(matrix<StoragePolicy>&& rval)
-      : _v {std::move(rval._v)},
-        _n {rval._n},
-        _m {rval._m},
-        _sp{rval._n, rval._m} {
-      //no need to do anything special here
-   }*/
 
    template <class StoragePolicy>
    template <class OtherStoragePolicy>
@@ -120,7 +110,13 @@ namespace optimization
    matrix<StoragePolicy>& matrix<StoragePolicy>::operator=(matrix<OtherStoragePolicy> const& rh)
    {
       if(_n == rh._n || _m == rh._m) {
-         _v = rh._v;
+         for(std::size_t r=0; r<_n; ++r) {
+            miterator i = rbegin(r);
+            miterator_const j = rh.rbegin(r);
+            for(; !i.ended() && !j.ended(); ++i, ++j) {
+               *i = *j;
+            }
+         }
       } else {
          throw std::runtime_error("assignment of matrices with non-equal size");
       }
