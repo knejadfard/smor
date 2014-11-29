@@ -21,7 +21,7 @@ namespace optimization
       }
       std::size_t column_end(std::size_t const& j) const
       {
-         return _n*_m + j;
+         return _m*_n + j;
       }
       std::size_t column_diff() const
       {
