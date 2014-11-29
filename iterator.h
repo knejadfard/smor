@@ -14,10 +14,10 @@ namespace optimization
 
    public:
 
-      typedef iterator<Value> iterator_type;
-      typedef Value value_type;
-      typedef Value& reference;
-      typedef Value* pointer;
+      using iterator_type = iterator<Value>;
+      using value_type = Value;
+      using reference = Value&;
+      using pointer = Value*;
 
       iterator(pointer p, pointer end, const std::size_t& jump_size=1)
             : _p {p}, _end {end}, _diff {jump_size}
