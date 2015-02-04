@@ -124,7 +124,6 @@ namespace optimization
    {cout<<"cmatrix copy constructor"<<endl;}
 
    template <class StoragePolicy>
-   //template <class OtherStoragePolicy>
    matrix<StoragePolicy>::matrix(matrix<StoragePolicy>&& rh)
       : _v {std::move(rh.data())},
         _n {rh.row_count()},
@@ -178,7 +177,6 @@ namespace optimization
    }
 
    template <class StoragePolicy>
-   //template <class OtherStoragePolicy>
    matrix<StoragePolicy>& matrix<StoragePolicy>::operator=(matrix<StoragePolicy>&& rh)
    {
       if(_n == rh._n || _m == rh._m) {
