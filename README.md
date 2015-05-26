@@ -8,6 +8,7 @@ To build the tests on Unix systems, simply issue the following:
 * cd build
 * cmake ../
 * make
+
 Now, you have an executable file named "smortest".
 
 # Future Path
