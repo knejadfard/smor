@@ -19,30 +19,49 @@ namespace optimization
       using reference = Value&;
       using pointer = Value*;
 
-      iterator(pointer begin, const std::size_t& jump_size=1)
-            : _p {begin}/*, _end {end}*/, _diff {jump_size}
-      {}
-      iterator(const iterator& rh)
-            : _p {rh._p}, _diff {rh._diff}
-      {}
+      iterator(pointer begin, const std::size_t& jump_size=1): _p {begin}, _diff {jump_size}
+      {
+      }
+
+      iterator(const iterator& rh): _p {rh._p}, _diff {rh._diff}
+      {
+      }
 
       //implicit conversion from a const iterator
       template <typename OtherType>
-      iterator(iterator<OtherType>& other)
-            : iterator(other._p, other._diff)
-      {}
+      iterator(iterator<OtherType>& other): iterator(other._p, other._diff)
+      {
+      }
 
       iterator(): _p{nullptr}, _diff{1}
-      {}
+      {
+      }
 
-      bool operator==(const iterator<Value>& rh) const {return _p == rh._p;}
-      bool operator!=(const iterator<Value>& rh) const {return _p != rh._p;}
+      bool operator==(const iterator<Value>& rh) const 
+      {
+          return _p == rh._p;
+      }
 
-      iterator_type operator=(const iterator_type& rh) {_p=rh._p; _diff=rh._diff;}
+      bool operator!=(const iterator<Value>& rh) const
+      {
+          return _p != rh._p;
+      }
 
-      reference operator*() const {return *_p;}
+      iterator_type operator=(const iterator_type& rh)
+      {
+          _p=rh._p; _diff=rh._diff;
+      }
 
-      iterator_type operator++() const {_p+=_diff; return *this;}
+      reference operator*() const
+      {
+          return *_p;
+      }
+
+      iterator_type operator++() const
+      {
+          _p+=_diff;
+          return *this;
+      }
 
    protected:
 

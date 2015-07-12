@@ -88,8 +88,8 @@ namespace optimization
       : _v(rows*cols),
         _n {rows},
         _m {cols},
-        _sp{rows, cols} {
-      //nothing to do here
+        _sp{rows, cols}
+   {
    }
 
    template <class StoragePolicy>
@@ -112,7 +112,9 @@ namespace optimization
         _n {rh.row_count()},
         _m {rh.col_count()},
         _sp{rh.row_count(), rh.col_count()}
-   {cout<<"rmatrix copy constructor"<<endl;}
+   {
+       cout<<"rmatrix copy constructor"<<endl;
+   }
 
    template <>
    template <>
@@ -121,7 +123,9 @@ namespace optimization
         _n {rh.row_count()},
         _m {rh.col_count()},
         _sp{rh.row_count(), rh.col_count()}
-   {cout<<"cmatrix copy constructor"<<endl;}
+   {
+       cout<<"cmatrix copy constructor"<<endl;
+   }
 
    template <class StoragePolicy>
    matrix<StoragePolicy>::matrix(matrix<StoragePolicy>&& rh)
@@ -129,7 +133,9 @@ namespace optimization
         _n {rh.row_count()},
         _m {rh.col_count()},
         _sp{rh.row_count(), rh.col_count()}
-   {cout<<"move constructor"<<endl;}
+   {
+       cout<<"move constructor"<<endl;
+   }
 
    template <class StoragePolicy>
    template <class OtherStoragePolicy>
