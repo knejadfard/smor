@@ -11,9 +11,5 @@ To build the tests on Unix systems, simply issue the following:
 
 Now, you have an executable file named "smortest".
 
-# Future Path
-* Use Eigen library to compare tests.
-* Utilize C++11 threading facilities to speed up the performance.
-
 # DEAD BRANCH
 This facility should be replaced by Eigen library.
