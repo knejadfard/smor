@@ -16,3 +16,4 @@ Now, you have an executable file named "smortest".
 * Utilize C++11 threading facilities to speed up the performance.
 
 # DEAD BRANCH
+This facility should be replaced by Eigen library.
