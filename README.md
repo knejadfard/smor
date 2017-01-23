@@ -10,6 +10,3 @@ To build the tests on Unix systems, simply issue the following:
 * make
 
 Now, you have an executable file named "smortest".
-
-# DEAD BRANCH
-This facility should be replaced by Eigen library.
